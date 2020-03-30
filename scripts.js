@@ -11,7 +11,7 @@ jQuery( "#user_login" ).on( "input", function() {
         b: parseInt(result[3], 16)
     } : null;
     
-    jQuery( '.code' ).html( "/**\n * Base color: " + hex + "\n * @link https://jsfiddle.net/crstauf/p9y3m6j2/ Generator.\n */\n\n" + 
+    jQuery( '.code' ).html( "/**\n * Base color: " + hex + "\n * @link https://github.com/crstauf/WordPress-Login-Styles-Generator Generator.\n */\n\n" + 
 "body {\n\t--r: " + rgb.r + ";\n\t--g: " + rgb.g + ";\n\t--b: " + rgb.b + ";\n}\n\n" +
 "#wp-submit {\n\t" + 
   "background: rgb( var( --r ), var( --g ), var( --b ) );\n\t" + 
