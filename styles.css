@@ -216,6 +216,7 @@ a:hover {
   border: none;
   border-top: 5px solid #999;
   font-family: Consolas, Monaco, monospace;
+  box-sizing: border-box;
   font-size: 11px;
   
   -webkit-user-select: all;
