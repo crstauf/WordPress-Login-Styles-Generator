@@ -41,3 +41,9 @@ The relative values are determined using the "Submit" button's background color 
 |`.wp-core-ui .button-primary.active, .wp-core-ui .button-primary.active:focus, .wp-core-ui .button-primary.active:hover, .wp-core-ui .button-primary:active`|`background`|`rgb(0, 102, 155)`|0|-22|-31|
 |`.wp-core-ui .button-primary.active, .wp-core-ui .button-primary.active:focus, .wp-core-ui .button-primary.active:hover, .wp-core-ui .button-primary:active`|`border-color`|`rgb(0, 102, 155)`|0|-22|-31|
 |`.wp-core-ui .button-primary.focus, .wp-core-ui .button-primary:focus`|`box-shadow`|`rgb(0, 124, 186)`|0|0|0|
+
+## Notes
+
+- Developed on WordPress 5.4 (no backwards compatibility).
+- The WordPress logo is not displayed, with the assumption that you'll replace it with your site's logo (with the selector `.login h1 a` and `background-image` property).
+- WordPress uses a pseudo element (`::before`) to create the checkmark, and this element has a colored SVG as the background image, which can't be overridden. Because of this, the script overrides the native styling so as to match the color scheme.
