@@ -2,7 +2,7 @@
 
 > Originally developed on JSFiddle: https://jsfiddle.net/crstauf/p9y3m6j2/
 
-A generator to style the WordPress native login form from a single (primary) color. 
+A generator to style the WordPress native login form from a single (primary) color.
 
 ## Instructions
 
@@ -25,7 +25,7 @@ The relative values are determined using the "Submit" button's background color 
 |Base||`rgb(0, 124, 186)`|0|124|186|
 |`.login #login_error, .login .message, .login .success`|`border-left-color`|`rgb(0, 160, 210)`|0|+36|+24|
 |`a`|`color`|`rgb(0, 115, 170)`|0|-9|-4|
-|`a:active, a:hover`|`color`|`rgb(0, 160, 210)`|0|+36|+24|
+|`a:active, a:hover, .login #backtoblog a:hover, .login #nav a:hover, .login h1 a:hover`|`color`|`rgb(0, 160, 210)`|0|+36|+24|
 |`input[type=checkbox]:focus, input[type=color]:focus, input[type=date]:focus, input[type=datetime-local]:focus, input[type=datetime]:focus, input[type=email]:focus, input[type=month]:focus, input[type=number]:focus, input[type=password]:focus, input[type=radio]:focus, input[type=search]:focus, input[type=tel]:focus, input[type=text]:focus, input[type=time]:focus, input[type=url]:focus, input[type=week]:focus, select:focus, textarea:focus`|`border-color`|`rgb(0, 124, 186)`|0|0|0|
 |`input[type=checkbox]:focus, input[type=color]:focus, input[type=date]:focus, input[type=datetime-local]:focus, input[type=datetime]:focus, input[type=email]:focus, input[type=month]:focus, input[type=number]:focus, input[type=password]:focus, input[type=radio]:focus, input[type=search]:focus, input[type=tel]:focus, input[type=text]:focus, input[type=time]:focus, input[type=url]:focus, input[type=week]:focus, select:focus, textarea:focus`|`box-shadow`|`rgb(0, 124, 186)`|0|0|0|
 |`.wp-core-ui .button, .wp-core-ui .button-secondary`|`color`|`rgb(0, 113, 161)`|0|-9|-25|

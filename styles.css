@@ -37,6 +37,7 @@ pre.code {
 	border-top: 5px solid #999;
 	font-family: Consolas, Monaco, monospace;
 	box-sizing: border-box;
+	overflow: auto;
 	font-size: 11px;
 
 	-webkit-user-select: all;

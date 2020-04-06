@@ -7,13 +7,36 @@
 		return 'rgb( calc( var( --r ) + ' + r_diff + ' ), calc( var( --g ) + ' + g_diff + ' ), calc( var( --b ) + ' + b_diff + ' ) )';
 	}
 
-	function generate_styles( base_r, base_g, base_b ) {
-		var styles = '';
+	function generate_styles( hex ) {
+		if ( hex.length < 7 )
+			return '';
+
+		var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+		r = parseInt( result[1], 16 );
+		g = parseInt( result[2], 16 );
+		b = parseInt( result[3], 16 );
+
+		var styles = '/**' + "\n" +
+			' * Base color: ' + hex + "\n" +
+			' * @link https://github.com/crstauf/WordPress-Login-Styles-Generator Generator.' + "\n" +
+			' */' + "\n\n";
+
+		styles += '/* Overrides for checkbox background SVG */' + "\n";
+		styles += 'input[type=checkbox]:focus, input[type=radio]:focus { box-shadow: none; }' + "\n";
+		styles += 'input[type=checkbox] { position: relative; border-radius: 0; }' + "\n";
+		styles += 'input[type=checkbox]:checked::before { content: "\\f147"; width: 16px; height: 16px; margin: -3px 0 0 -4px; font-family: dashicons; line-height: 1em; font-size: 21px; color: #438BBA; }' + "\n\n";
+		styles += _generate_styles( r, g, b );
+
+		return styles;
+	}
+
+	function _generate_styles( base_r, base_g, base_b ) {
+		var styles = '/* Colors */' + "\n";
 
 		styles += ':root { --r: ' + base_r + '; --g: ' + base_g + '; --b: ' + base_b + '; }' + "\n";
 		styles += '.login #login_error, .login .message, .login .success { border-left-color: ' + generate_rgb( 0, 36, 24 ) + '; }' + "\n";
 		styles += 'a { color: ' + generate_rgb( 0, -9, -4 ) + '; }' + "\n";
-		styles += 'a:active, a:hover { color: ' + generate_rgb( 0, 36, 24 ) + '; }' + "\n";
+		styles += 'a:active, a:hover, .login #backtoblog a:hover, .login #nav a:hover, .login h1 a:hover { color: ' + generate_rgb( 0, 36, 24 ) + '; }' + "\n";
 
 		styles += 'input[type=checkbox]:focus, ' +
 		          'input[type=color]:focus, ' +
@@ -74,16 +97,8 @@
 
 	jQuery( "#user_login" ).on( "input", function() {
 		var hex = jQuery( this ).val();
+		var styles = generate_styles( hex );
 
-		if ( hex.length < 7 )
-			return;
-
-		var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-		r = parseInt( result[1], 16 );
-		g = parseInt( result[2], 16 );
-		b = parseInt( result[3], 16 );
-
-		var styles = generate_styles( r, g, b );
 		jQuery( 'style#_generated' ).html( styles );
 		jQuery( 'pre' ).html( styles );
 	} );
