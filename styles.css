@@ -1,44 +1,46 @@
 .login .button.wp-hide-pw .dashicons {
-  margin-top: -3px;
+	margin-top: -3px;
 }
 
-.login .button.wp-hide-pw:hover { border-color: transparent !important; }
+.login .button.wp-hide-pw:hover {
+	border-color: transparent !important;
+}
 
 input[type=checkbox]:focus, input[type=radio]:focus {
-  box-shadow: none;
+	box-shadow: none;
 }
 
 input[type=checkbox] {
-  position: relative;
-  border-radius: 0;
+	position: relative;
+	border-radius: 0;
 }
 
-input[type=checkbox]:checked::before { 
-  content: "\f147";
-  width: 16px;
-  height: 16px;
-  margin: -3px 0 0 -4px;
-  font-family: dashicons;
-  line-height: 1em;
-  font-size: 21px;
-  color: #438BBA;
+input[type=checkbox]:checked::before {
+	content: "\f147";
+	width: 16px;
+	height: 16px;
+	margin: -3px 0 0 -4px;
+	font-family: dashicons;
+	line-height: 1em;
+	font-size: 21px;
+	color: #438BBA;
 }
 
 pre.code {
-  display: block;
-  width: 100%;
-  min-height: 300px;
-  padding: 10px;
-  margin-top: 50px;
-  background-color: #FFF;
-  border: none;
-  border-top: 5px solid #999;
-  font-family: Consolas, Monaco, monospace;
-  box-sizing: border-box;
-  font-size: 11px;
-  
-  -webkit-user-select: all;
-     -moz-user-select: all;
-      -ms-user-select: all;
-          user-select: all;
+	display: block;
+	width: 100%;
+	min-height: 300px;
+	padding: 10px;
+	margin-top: 50px;
+	background-color: #FFF;
+	border: none;
+	border-top: 5px solid #999;
+	font-family: Consolas, Monaco, monospace;
+	box-sizing: border-box;
+	font-size: 11px;
+
+	-webkit-user-select: all;
+	   -moz-user-select: all;
+	    -ms-user-select: all;
+	        user-select: all;
 }
