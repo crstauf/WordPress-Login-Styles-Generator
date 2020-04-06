@@ -1,5 +1,12 @@
 <title>WordPress Login Styles Generator</title>
+<link rel="stylesheet" href="dashicons.min.css" type="text/css" />
+<link rel="stylesheet" href="buttons.min.css" type="text/css" />
+<link rel="stylesheet" href="forms.min.css" type="text/css" />
+<link rel="stylesheet" href="l10n.min.css" type="text/css" />
+<link rel="stylesheet" href="login.min.css" type="text/css" />
 <link rel="stylesheet" href="styles.css" type="text/css" />
+<style type="text/css" id="_generated"></style>
+
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous" defer></script>
 <script src="scripts.js" defer></script>
 
@@ -21,31 +28,52 @@ link hover:               rgb(  0, 160, 210 )     0, +27, +24
 checkbox:                 rgb( 30, 140, 190 )   +30,  +7,  +4
 -->
 
-<div class="login">
+<body class="login login-action-login wp-core-ui">
+
 	<div id="login">
+		
 		<p class="message">Enter your primary color, and generated CSS will be applied and provided.</p>
+		<p class="message">Developed from WordPress 5.4.</p>
 		<p class="message">Created by <a href="https://develop.calebstauffer.com">Caleb Stauffer</a>.</p>
-		<form>
+
+		<form name="loginform" id="loginform" action="https://wpdev.local/wp-login.php" method="post">
 			<p>
-				<label for="user_login">Button Background Hex Code<br />
-				<input type="text" id="user_login" class="input" value="" size="20" placeholder="#" maxlength="7" style="font-family: Consolas, Monaco, monospace;" /></label>
+				<label for="user_login">Username or Email Address</label>
+				<input type="text" name="log" id="user_login" class="input" value="" size="20" autocapitalize="off" placeholder="#" maxlength="7">
 			</p>
-			<p>
-				<label for="user_pass">Password<br />
-				<input type="text" id="user_pass" class="input" value="" size="20" readonly="readonly" /></label>
-			</p>
-			<p class="forgetmenot">
-				<label for="rememberme"><input name="rememberme" type="checkbox" id="rememberme" value="forever" /> Remember Me</label>
-			</p>
+
+			<div class="user-pass-wrap">
+				<label for="user_pass">Password</label>
+				<div class="wp-pwd">
+					<input type="password" name="pwd" id="user_pass" class="input password-input" value="" size="20" readonly="readonly">
+					<button type="button" class="button button-secondary wp-hide-pw hide-if-no-js" data-toggle="0" aria-label="Show password">
+						<span class="dashicons dashicons-visibility" aria-hidden="true"></span>
+					</button>
+				</div>
+			</div>
+			
+			<p class="forgetmenot"><input name="rememberme" type="checkbox" id="rememberme" value="forever"> <label for="rememberme">Remember Me</label></p>
+			
 			<p class="submit">
-				<input type="submit" id="wp-submit" class="button button-primary button-large" value="Log In" />
+				<input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="Log In">
+				<input type="hidden" name="redirect_to" value="https://wpdev.local/wp-admin/">
+				<input type="hidden" name="testcookie" value="1">
 			</p>
 		</form>
+
 		<p id="nav">
 			<a href="#">Lost your password?</a>
 		</p>
+		
+		<script type="text/javascript">
+			function wp_attempt_focus() {setTimeout( function() {try {d = document.getElementById( "user_login" );d.focus(); d.select();} catch( er ) {}}, 200);}
+			wp_attempt_focus();
+			if ( typeof wpOnload === 'function' ) { wpOnload() }
+		</script>
+		
 		<p id="backtoblog"><a href="https://github.com/crstauf/WordPress-Login-Styles-Generator">← Back to GitHub Repository</a></p>
 	</div>
-</div>
 
-<pre class="code" style="font-family: Consolas, Monaco, monospace;"></pre>
+	<pre class="code" style="font-family: Consolas, Monaco, monospace;"></pre>
+
+</body>
