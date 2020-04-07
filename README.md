@@ -44,6 +44,6 @@ The relative values are determined using the "Submit" button's background color 
 
 ## Notes
 
-- Developed on WordPress 5.4 (no backwards compatibility).
+- Developed on WordPress 5.4 (no backwards compatibility testing).
 - The WordPress logo is not displayed, with the assumption that you'll replace it with your site's logo (with the selector `.login h1 a` and `background-image` property).
 - WordPress uses a pseudo element (`::before`) to create the checkmark, and this element has a colored SVG as the background image, which can't be overridden. Because of this, the script overrides the native styling so as to match the color scheme.
