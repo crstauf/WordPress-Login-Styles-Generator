@@ -22,7 +22,7 @@ The relative values are determined using the "Submit" button's background color 
 
 |Selector|Property|RGB|Red|Green|Blue|
 |:---|:---|:---|:---|:---|:---|
-|Base (`:root`)||`rgb(0,124,186)`|0|124|186|
+|Base (`:root`)||`rgb(0,124,186)`|`0`|`124`|`186`|
 |`.login #login_error, .login .message, .login .success`|`border-left-color`|`rgb(0,160,210)`|0|+36|+24|
 |`a`|`color`|`rgb(0,115,170)`|0|-9|-4|
 |`a:active, a:hover, .login #backtoblog a:hover, .login #nav a:hover, .login h1 a:hover`|`color`|`rgb(0,160,210)`|0|+36|+24|
