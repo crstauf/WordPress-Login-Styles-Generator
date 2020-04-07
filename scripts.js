@@ -1,57 +1,106 @@
-jQuery( "#user_login" ).on( "input", function() {
-    var hex = jQuery( this ).val();
+( function() {
+	var r = 0;
+	var g = 124;
+	var b = 186;
 
-    if ( hex.length < 7 )
-        return;
+	function generate_rgb( r_diff, g_diff, b_diff ) {
+		return 'rgb( calc( var( --r ) + ' + r_diff + ' ), calc( var( --g ) + ' + g_diff + ' ), calc( var( --b ) + ' + b_diff + ' ) )';
+	}
 
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    var rgb = result ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16)
-    } : null;
-    
-    jQuery( '.code' ).html( "/**\n * Base color: " + hex + "\n * @link https://github.com/crstauf/WordPress-Login-Styles-Generator Generator.\n */\n\n" + 
-"body {\n\t--r: " + rgb.r + ";\n\t--g: " + rgb.g + ";\n\t--b: " + rgb.b + ";\n}\n\n" +
-"#wp-submit {\n\t" + 
-  "background: rgb( var( --r ), var( --g ), var( --b ) );\n\t" + 
-  "border-top-color:    rgb( var( --r ), calc( var( --g ) + 11 ), var( --b ) );\n\t" + 
-  "border-left-color:   rgb( var( --r ), calc( var( --g ) - 30 ), calc( var( --b ) - 33 ) );\n\t" + 
-  "border-right-color:  rgb( var( --r ), calc( var( --g ) - 30 ), calc( var( --b ) - 33 ) );\n\t" + 
-  "border-bottom-color: rgb( var( --r ), calc( var( --g ) - 30 ), calc( var( --b ) - 33 ) );\n\t" + 
-  "text-shadow: 0 -1px 1px rgb( var( --r ), calc( var( --g ) - 30 ), calc( var( --b ) - 33 ) ),\n\t" + 
-  "             1px 0 1px  rgb( var( --r ), calc( var( --g ) - 30 ), calc( var( --b ) - 33 ) ),\n\t" + 
-  "             0 1px 1px  rgb( var( --r ), calc( var( --g ) - 30 ), calc( var( --b ) - 33 ) ),\n\t" + 
-  "             -1px 0 1px rgb( var( --r ), calc( var( --g ) - 30 ), calc( var( --b ) - 33 ) );\n\t" + 
-  "box-shadow: 0 1px 0 rgb( var( --r ), calc( var( --g ) - 30 ), calc( var( --b ) - 33 ) );\n" + 
-"}\n\n" +
-"#wp-submit:hover{\n\t" + 
-  "border-color: rgb( var( --r ), calc( var( --g ) - 30 ), calc( var( --b ) - 33 ) ) !important;\n\t" + 
-  "background:   rgb( var( --r ), calc( var( --g ) - 30 ), calc( var( --b ) - 33 ) ) !important;\n" + 
-"}\n\n" +
-"#user_login:focus,\n" +
-"#user_pass:focus,\n" +
-"#rememberme:focus {\n\t" + 
-  "box-shadow: 0 0 2px rgba( calc( var( --r ) + 30 ), calc( var( --g ) + 7 ), calc( var( --b ) + 4 ), 0.8 );\n\t" + 
-  "border-color: rgb( calc( var( --r ) + 91 ), calc( var( --g ) + 24 ), calc( var( --b ) + 31 ) );\n" + 
-"}\n\n" + 
-".login p.message a,\n" + 
-".login #login_error a {\n\t" + 
-  "color: rgb( var( --r ), calc( var( --g ) - 18 ), calc( var( --b ) - 16 ) );\n" + 
-"}\n\n" + 
-".login p.message a:hover,\n" + 
-".login #login_error a:hover,\n" + 
-".login #nav a:hover,\n" +
-".login #backtoblog a:hover {\n\t" + 
-  "color: rgb( var( --r ), calc( var( --g ) + 27 ), calc( var( --b ) + 24 ) );\n" + 
-"}\n\n" + 
-".login .message {\n\t" + 
-  "border-left-color: rgb( var( --r ), calc( var( --g ) + 27 ), calc( var( --b ) + 24 ) );\n" + 
-"}\n\n" + 
-"#rememberme::before {\n\t" + 
-  "color: rgb( calc( var( --r ) + 30 ), calc( var( --g ) + 7 ), calc( var( --b ) + 4 ) );\n" + 
-"}" );
-    
-    jQuery( 'body' ).attr( 'style', '--r: ' + rgb.r + '; --g: ' + rgb.g + '; --b: ' + rgb.b + ';' );
-  
-} );
+	function generate_styles( hex ) {
+		if ( hex.length < 7 )
+			return '';
+
+		var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+		r = parseInt( result[1], 16 );
+		g = parseInt( result[2], 16 );
+		b = parseInt( result[3], 16 );
+
+		var styles = '/**' + "\n" +
+			' * Base color: ' + hex + "\n" +
+			' * @link https://github.com/crstauf/WordPress-Login-Styles-Generator Generator.' + "\n" +
+			' */' + "\n\n";
+
+		styles += '/* Overrides for checkbox background SVG */' + "\n";
+		styles += 'input[type=checkbox]:focus, input[type=radio]:focus { box-shadow: none; }' + "\n";
+		styles += 'input[type=checkbox] { position: relative; border-radius: 0; }' + "\n";
+		styles += 'input[type=checkbox]:checked::before { content: "\\f147"; width: 16px; height: 16px; margin: -3px 0 0 -4px; font-family: dashicons; line-height: 1em; font-size: 21px; color: #438BBA; }' + "\n\n";
+		styles += _generate_styles( r, g, b );
+
+		return styles;
+	}
+
+	function _generate_styles( base_r, base_g, base_b ) {
+		var styles = '/* Colors */' + "\n";
+
+		styles += ':root { --r: ' + base_r + '; --g: ' + base_g + '; --b: ' + base_b + '; }' + "\n";
+		styles += '.login #login_error, .login .message, .login .success { border-left-color: ' + generate_rgb( 0, 36, 24 ) + '; }' + "\n";
+		styles += 'a { color: ' + generate_rgb( 0, -9, -4 ) + '; }' + "\n";
+		styles += 'a:active, a:hover, .login #backtoblog a:hover, .login #nav a:hover, .login h1 a:hover { color: ' + generate_rgb( 0, 36, 24 ) + '; }' + "\n";
+
+		styles += 'input[type=checkbox]:focus, ' +
+		          'input[type=color]:focus, ' +
+		          'input[type=date]:focus, ' +
+		          'input[type=datetime-local]:focus, ' +
+		          'input[type=datetime]:focus, ' +
+		          'input[type=email]:focus, ' +
+		          'input[type=month]:focus, ' +
+		          'input[type=number]:focus, ' +
+		          'input[type=password]:focus, ' +
+		          'input[type=radio]:focus, ' +
+		          'input[type=search]:focus, ' +
+		          'input[type=tel]:focus, ' +
+		          'input[type=text]:focus, ' +
+		          'input[type=time]:focus, ' +
+		          'input[type=url]:focus, ' +
+		          'input[type=week]:focus, ' +
+		          'select:focus, ' +
+		          'textarea:focus {';
+		styles += 'border-color: ' + generate_rgb( 0, 0, 0 ) + '; }' + "\n";
+
+		styles += 'input[type=checkbox]:focus, ' +
+		          'input[type=color]:focus, ' +
+		          'input[type=date]:focus, ' +
+		          'input[type=datetime-local]:focus, ' +
+		          'input[type=datetime]:focus, ' +
+		          'input[type=email]:focus, ' +
+		          'input[type=month]:focus, ' +
+		          'input[type=number]:focus, ' +
+		          'input[type=password]:focus, ' +
+		          'input[type=radio]:focus, ' +
+		          'input[type=search]:focus, ' +
+		          'input[type=tel]:focus, ' +
+		          'input[type=text]:focus, ' +
+		          'input[type=time]:focus, ' +
+		          'input[type=url]:focus, ' +
+		          'input[type=week]:focus, ' +
+		          'select:focus, ' +
+		          'textarea:focus {';
+		styles += 'box-shadow: 0 0 0 1px ' + generate_rgb( 0, 0, 0 ) + '; }' + "\n";
+
+		styles += '.wp-core-ui .button-secondary { color: ' + generate_rgb( 0, -9, -25 ) + '; }' + "\n";
+		styles += '.wp-core-ui .button, .wp-core-ui .button-secondary { border-color: ' + generate_rgb( 0, -9, -25 ) + '; }' + "\n";
+		styles += '.wp-core-ui .button-secondary:hover { color: ' + generate_rgb( 1, -28, -51 ) + '; }' + "\n";
+		styles += '.wp-core-ui .button-secondary:hover, .wp-core-ui .button.hover, .wp-core-ui .button:hover { border-color: ' + generate_rgb( 1, -28, -51 ) + '; }' + "\n";
+		styles += '.login .button.wp-hide-pw:focus { border-color: ' + generate_rgb( 0, 0, 0 ) + '; }' + "\n";
+		styles += 'input[type=checkbox]:checked::before { color: ' + generate_rgb( 67, 15, 0 ) + '; }' + "\n";
+		styles += '.wp-core-ui .button-primary { background: ' + generate_rgb( 0, 0, 0 ) + '; }' + "\n";
+		styles += '.wp-core-ui .button-primary { border-color: ' + generate_rgb( 0, 0, 0 ) + '; }' + "\n";
+		styles += '.wp-core-ui .button-primary.focus, .wp-core-ui .button-primary.hover, .wp-core-ui .button-primary:focus, .wp-core-ui .button-primary:hover { background: ' + generate_rgb( 0, -11, 25 ) + '; }' + "\n";
+		styles += '.wp-core-ui .button-primary.focus, .wp-core-ui .button-primary.hover, .wp-core-ui .button-primary:focus, .wp-core-ui .button-primary:hover { border-color: ' + generate_rgb( 0, -11, 25 ) + '; }' + "\n";
+		styles += '.wp-core-ui .button-primary.active, .wp-core-ui .button-primary.active:focus, .wp-core-ui .button-primary.active:hover, .wp-core-ui .button-primary:active { background: ' + generate_rgb( 0, -22, -31 ) + '; }' + "\n";
+		styles += '.wp-core-ui .button-primary.active, .wp-core-ui .button-primary.active:focus, .wp-core-ui .button-primary.active:hover, .wp-core-ui .button-primary:active { border-color: ' + generate_rgb( 0, -22, -31 ) + '; }' + "\n";
+		styles += '.wp-core-ui .button-primary.focus, .wp-core-ui .button-primary:focus { box-shadow: 0 0 0 1px #fff, 0 0 0 3px ' + generate_rgb( 0, 0, 0 ) + '; }' + "\n";
+
+		return styles;
+	}
+
+	jQuery( "#user_login" ).on( "input", function() {
+		var hex = jQuery( this ).val();
+		var styles = generate_styles( hex );
+
+		jQuery( 'style#_generated' ).html( styles );
+		jQuery( 'pre' ).html( styles );
+	} );
+
+} () );
